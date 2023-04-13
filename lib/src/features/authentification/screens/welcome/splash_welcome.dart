@@ -1,0 +1,71 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:loginpd/src/features/authentification/screens/login/login_screen.dart';
+
+import '../../../../constants/colors.dart';
+import '../../../../constants/images_strings.dart';
+import '../../../../constants/sizes.dart';
+import '../../../../constants/text_strings.dart';
+import '../signup/signup_screen.dart';
+
+
+class WelcomeScreen extends StatelessWidget {
+  const WelcomeScreen({Key? key}) : super(key: key);
+
+
+  @override
+  Widget build(BuildContext context) {
+
+
+    var mediaQuery = MediaQuery.of(context);
+    var height = mediaQuery.size.height;
+    var brightness = mediaQuery.platformBrightness;
+    final isDarkMode = brightness == Brightness.dark;
+
+
+    return Scaffold(
+      backgroundColor: isDarkMode ? tSecondaryColor : tWhiteColor,
+      body: Container(
+        padding: const EdgeInsets.all(tDefaultSize),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Image(image: const AssetImage(tWelcomeScreenImage), height: height * 0.6),
+            Column(
+              children: [
+                Text(tWelcomeTitle, style: Theme.of(context).textTheme.displaySmall?.copyWith(fontSize: 27)),
+                const SizedBox(height: 16),
+                Text(tWelcomeSubTitle,
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 18),
+                    textAlign: TextAlign.center),
+              ],
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: SizedBox(
+                    height: 50.0,
+                    child: OutlinedButton(
+                      onPressed: () => Get.to(() => const LoginScreen()),
+                      child: Text(tLogin.toUpperCase()),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 10.0),
+                Expanded(
+                  child: SizedBox(
+                    height: 50.0,
+                    child: ElevatedButton(
+                      onPressed: () => Get.to(() => const SignUpScreen()),
+                      child: Text(tSignup.toUpperCase()),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
